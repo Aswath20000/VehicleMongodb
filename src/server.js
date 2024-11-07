@@ -7,7 +7,7 @@ app.use(cors()); // Enable CORS for all requests
 app.use(express.json()); // Parse JSON bodies
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/vehicledatabase', {
+mongoose.connect('mongodb://localhost:27017/vdatabase', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
@@ -31,6 +31,9 @@ const adminSchema = new mongoose.Schema({
   username: String,
   password: String,
 });
+
+
+
 
 const Vehicle = mongoose.model('Vehicle', vehicleSchema);
 const Admin = mongoose.model('Admin', adminSchema);
@@ -82,6 +85,24 @@ app.post('/vehicle', async (req, res) => {
   await vehicle.save();
   res.send({ success: true });
 });
+
+// Endpoint to delete a vehicle by vehicle number
+app.delete('/vehicle/:vehicleNumber', async (req, res) => {
+  const { vehicleNumber } = req.params;
+  console.log('Received vehicleNumber for deletion:', vehicleNumber); // Debug log
+
+  try {
+    const result = await Vehicle.findOneAndDelete({ vehicleNumber });
+    if (result) {
+      res.send({ success: true });
+    } else {
+      res.send({ success: false, message: 'Vehicle not found' });
+    }
+  } catch (error) {
+    res.status(500).send({ success: false, error: 'Internal Server Error' });
+  }
+});
+
 
 // Start the server
 app.listen(5000, () => {

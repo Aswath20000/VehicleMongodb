@@ -4,6 +4,8 @@ import UserLogin from './UserLogin';
 import AdminLogin from './AdminLogin';
 import VehicleDetails from './VehicleDetails';
 import AdminDashboard from './AdminDashboard';
+import './App.css';
+
 
 function App() {
   return (

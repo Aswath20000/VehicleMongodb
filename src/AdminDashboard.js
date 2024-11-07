@@ -9,8 +9,9 @@ function AdminDashboard() {
   const [torque, setTorque] = useState('');
   const [insuranceNumber, setInsuranceNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
+  const [deleteVehicleNumber, setDeleteVehicleNumber] = useState(''); // State for delete input
 
-  const handleSubmit = async (e) => {
+  const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/vehicle', {
@@ -32,10 +33,27 @@ function AdminDashboard() {
     }
   };
 
+  const handleDeleteSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.findOneAndDelete(`http://localhost:5000/vehicle/${deleteVehicleNumber}`);
+      if (response.data.success) {
+        alert('Vehicle deleted successfully');
+      } else {
+        alert('Failed to delete vehicle');
+      }
+    } 
+    catch (error) {
+      console.error('Error deleting vehicle:', error);
+    }
+  };
+
   return (
     <div>
       <h2>Admin Dashboard</h2>
-      <form onSubmit={handleSubmit}>
+      
+      <h3>Add Vehicle</h3>
+      <form onSubmit={handleAddSubmit}>
         <div>
           <label>Vehicle Number:</label>
           <input
@@ -100,6 +118,20 @@ function AdminDashboard() {
           />
         </div>
         <button type="submit">Add Vehicle</button>
+      </form>
+
+      <h3>Delete Vehicle</h3>
+      <form onSubmit={handleDeleteSubmit}>
+        <div>
+          <label>Vehicle Number to Delete:</label>
+          <input
+            type="text"
+            value={deleteVehicleNumber}
+            onChange={(e) => setDeleteVehicleNumber(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Delete Vehicle</button>
       </form>
     </div>
   );
