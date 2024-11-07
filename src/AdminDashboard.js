@@ -36,7 +36,7 @@ function AdminDashboard() {
   const handleDeleteSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.findOneAndDelete(`http://localhost:5000/vehicle/${deleteVehicleNumber}`);
+      const response = await axios.delete(`http://localhost:5000/vehicle/${deleteVehicleNumber}`);
       if (response.data.success) {
         alert('Vehicle deleted successfully');
       } else {
