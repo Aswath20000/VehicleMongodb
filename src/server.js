@@ -33,8 +33,6 @@ const adminSchema = new mongoose.Schema({
 });
 
 
-
-
 const Vehicle = mongoose.model('Vehicle', vehicleSchema);
 const Admin = mongoose.model('Admin', adminSchema);
 
