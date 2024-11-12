@@ -32,7 +32,6 @@ const adminSchema = new mongoose.Schema({
   password: String,
 });
 
-
 const Vehicle = mongoose.model('Vehicle', vehicleSchema);
 const Admin = mongoose.model('Admin', adminSchema);
 
@@ -87,8 +86,6 @@ app.post('/vehicle', async (req, res) => {
 // Endpoint to delete a vehicle by vehicle number
 app.delete('/vehicle/:vehicleNumber', async (req, res) => {
   const { vehicleNumber } = req.params;
-  console.log('Received vehicleNumber for deletion:', vehicleNumber); // Debug log
-
   try {
     const result = await Vehicle.findOneAndDelete({ vehicleNumber });
     if (result) {
@@ -101,6 +98,41 @@ app.delete('/vehicle/:vehicleNumber', async (req, res) => {
   }
 });
 
+// Endpoint to modify/update vehicle details by vehicle number
+app.put('/vehicle/:vehicleNumber', async (req, res) => {
+  const { vehicleNumber } = req.params;
+  const {
+    companyName,
+    price,
+    engineCC,
+    torque,
+    insuranceNumber,
+    expiryDate
+  } = req.body;
+
+  try {
+    const updatedVehicle = await Vehicle.findOneAndUpdate(
+      { vehicleNumber },
+      {
+        companyName,
+        price,
+        engineCC,
+        torque,
+        insuranceNumber,
+        expiryDate
+      },
+      { new: true } // Return the updated document
+    );
+
+    if (updatedVehicle) {
+      res.send({ success: true, updatedVehicle });
+    } else {
+      res.send({ success: false, message: 'Vehicle not found' });
+    }
+  } catch (error) {
+    res.status(500).send({ success: false, error: 'Internal Server Error' });
+  }
+});
 
 // Start the server
 app.listen(5000, () => {

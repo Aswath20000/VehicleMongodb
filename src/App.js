@@ -4,6 +4,7 @@ import UserLogin from './UserLogin';
 import AdminLogin from './AdminLogin';
 import VehicleDetails from './VehicleDetails';
 import AdminDashboard from './AdminDashboard';
+import ModifyDetails from './ModifyDetails';
 import './App.css';
 
 
@@ -27,6 +28,8 @@ function App() {
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/vehicle-details/:vehicleNumber" element={<VehicleDetails />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/modify-details" element={<ModifyDetails />} />
+
         </Routes>
       </div>
     </Router>
