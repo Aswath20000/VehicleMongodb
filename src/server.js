@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-app.use(cors()); // Enable CORS for all requests
-app.use(express.json()); // Parse JSON bodies
+app.use(cors()); 
+app.use(express.json()); 
 
-// Connect to MongoDB
+
 mongoose.connect('mongodb://localhost:27017/vdatabase', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost:27017/vdatabase', {
   console.error('Failed to connect to MongoDB', err);
 });
 
-// Define Mongoose schemas and models
+
 const vehicleSchema = new mongoose.Schema({
   vehicleNumber: String,
   companyName: String,
@@ -35,7 +35,7 @@ const adminSchema = new mongoose.Schema({
 const Vehicle = mongoose.model('Vehicle', vehicleSchema);
 const Admin = mongoose.model('Admin', adminSchema);
 
-// Endpoint for admin login
+
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const admin = await Admin.findOne({ username, password });
@@ -46,7 +46,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Endpoint to fetch vehicle details by vehicle number
+
 app.get('/vehicle/:vehicleNumber', async (req, res) => {
   const { vehicleNumber } = req.params;
   const vehicle = await Vehicle.findOne({ vehicleNumber });
@@ -57,7 +57,7 @@ app.get('/vehicle/:vehicleNumber', async (req, res) => {
   }
 });
 
-// Endpoint to add a new vehicle
+//  add a new vehicle
 app.post('/vehicle', async (req, res) => {
   const {
     vehicleNumber,
@@ -83,7 +83,7 @@ app.post('/vehicle', async (req, res) => {
   res.send({ success: true });
 });
 
-// Endpoint to delete a vehicle by vehicle number
+
 app.delete('/vehicle/:vehicleNumber', async (req, res) => {
   const { vehicleNumber } = req.params;
   try {
@@ -98,7 +98,7 @@ app.delete('/vehicle/:vehicleNumber', async (req, res) => {
   }
 });
 
-// Endpoint to modify/update vehicle details by vehicle number
+
 app.put('/vehicle/:vehicleNumber', async (req, res) => {
   const { vehicleNumber } = req.params;
   const {
@@ -121,7 +121,7 @@ app.put('/vehicle/:vehicleNumber', async (req, res) => {
         insuranceNumber,
         expiryDate
       },
-      { new: true } // Return the updated document
+      { new: true } 
     );
 
     if (updatedVehicle) {
@@ -134,7 +134,7 @@ app.put('/vehicle/:vehicleNumber', async (req, res) => {
   }
 });
 
-// Start the server
+
 app.listen(5000, () => {
   console.log('Server is running on port 5000');
 });

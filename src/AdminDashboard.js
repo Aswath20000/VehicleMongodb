@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 
 function AdminDashboard() {
@@ -11,8 +11,7 @@ function AdminDashboard() {
   const [insuranceNumber, setInsuranceNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [deleteVehicleNumber, setDeleteVehicleNumber] = useState('');
-
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate(); 
 
   const handleAddSubmit = async (e) => {
     e.preventDefault();
@@ -51,7 +50,7 @@ function AdminDashboard() {
     }
   };
 
-  // Navigate to the ModifyDetails page
+  
   const handleNavigateToModify = () => {
     navigate('/modify-details');
   };
@@ -62,7 +61,6 @@ function AdminDashboard() {
       
       <h3>Add Vehicle</h3>
       <form onSubmit={handleAddSubmit}>
-        {/* Input fields for adding vehicle */}
         <div>
           <label>Vehicle Number:</label>
           <input
@@ -126,8 +124,7 @@ function AdminDashboard() {
             required
           />
         </div>
-        {/* Other input fields */}
-        {/* ... */}
+       
         <button type="submit">Add Vehicle</button>
       </form>
 
@@ -144,8 +141,6 @@ function AdminDashboard() {
         </div>
         <button type="submit">Delete Vehicle</button>
       </form>
-
-      {/* Button to navigate to ModifyDetails page */}
       <button onClick={handleNavigateToModify}>Update Vehicle</button>
     </div>
   );

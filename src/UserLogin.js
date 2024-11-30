@@ -11,10 +11,10 @@ function UserLogin() {
 
   return (
     <div>
-      <h2>User Login</h2>
+      <h2>Enter Vehicle Number</h2>
       <input
         type="text"
-        placeholder="Enter Vehicle Number"
+        placeholder="eg: KX0XLX5XXX"
         value={vehicleNumber}
         onChange={(e) => setVehicleNumber(e.target.value)}
       />
